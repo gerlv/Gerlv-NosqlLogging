@@ -28,4 +28,8 @@ In your controller, for example, add one more method:
         return $log;
     } 
     
-and use it the same way you use Zend_Log
+and use it the same way you use Zend_Log: $this->getLog()->info('message');
+
+Requirnments:
+PHP5.3
+Shanty-Mongo (https://github.com/coen-hyde/Shanty-Mongo)
