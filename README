@@ -1,0 +1,31 @@
+This component allows you to log your events to the database.
+The main purpose of it is that MongoDb uses memory at initial stage, and then every period of time it dumps
+the datbase to the disk. Additionally, it has no transactions. Ideally, you would feel significany
+increase in speed of your app.
+
+Add following to your Bootstrap:
+
+    protected function _initLog()
+    {
+        $writer = Gerlv_Log::factory(array(
+            'db' => 'project',
+            'collection' => 'logs'
+        ));
+        $logger = new Zend_Log($writer);
+        return $logger;
+    }
+
+Where db is your database, and collection is the collection in that database.
+    
+In your controller, for example, add one more method:
+    public function getLog()
+    {
+        $bootstrap = $this->getInvokeArg('bootstrap');
+        if (!$bootstrap->hasResource('Log')) {
+            return false;
+        }
+        $log = $bootstrap->getResource('Log');
+        return $log;
+    } 
+    
+and use it the same way you use Zend_Log
